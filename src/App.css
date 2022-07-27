@@ -6,8 +6,15 @@ h5 {
   line-height: normal;
 }
 
+h1 {
+  margin: 10px 0;
+  font-size: 1.8rem;
+  text-transform: capitalize;
+}
+
 p {
   margin: 10px 0;
+  line-height: normal;
   font-size: 1rem;
 }
 
@@ -19,11 +26,6 @@ header {
   justify-content: center;
   background-color: #282c34;
   color: white;
-}
-
-header h1 {
-  font-size: 1.8rem;
-  text-transform: capitalize;
 }
 
 main {
@@ -45,11 +47,16 @@ main {
   margin: 10px;
 }
 
+.timer span {
+  font-weight: bold;
+}
+
 table {
   width: 100%;
   min-width: 500px;
   max-width: 900px;
   background-color: transparent;
+  border: 1px solid #e1e1e1;
   border-collapse: collapse;
   text-align: center;
 }

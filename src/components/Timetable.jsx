@@ -22,7 +22,7 @@ function Timetable({ buses }) {
     <table>
       <thead>
         <tr>
-          <th>bus route</th>
+          <th>next bus</th>
           <th>departs</th>
         </tr>
       </thead>

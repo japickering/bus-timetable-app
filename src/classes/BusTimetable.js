@@ -6,6 +6,9 @@ class BusTimetable {
     this.sheffieldTimes = this.everyHour24Hours();
   }
 
+  // TODO: show when no buses are due to depart in the next 15 minutes
+  checkNext15Minutes() {}
+
   // The X15 to SHEFFIELD departs every hour, on the hour, and is a 24-hour service.
   everyHour24Hours() {
     const arr = [];
@@ -62,12 +65,13 @@ class BusTimetable {
     return arr;
   }
 
-  findNextTwoBuses(leedsTimes, wakefieldTimes, doncasterTimes, sheffieldTimes) {
+  findNextBuses(leedsTimes, wakefieldTimes, doncasterTimes, sheffieldTimes) {
     const today = new Date();
-    console.log(today);
+    //  console.log(today);
     const now = today.setTime(today);
-    let count = 0;
+    const maxResults = 2; // edit for more buses
     const results = [];
+    let count = 0;
 
     // bus times => bus routes
     const leeds = leedsTimes.map((time) => {
@@ -91,14 +95,11 @@ class BusTimetable {
         results.push(bus);
         count++;
       }
-      if (count === 2) {
+      if (count === maxResults) {
         return results;
       }
     }
   }
-
-  // TODO: show when no buses are due to depart in the next 15 minutes
-  checkNext15Minutes() {}
 }
 
 module.exports = BusTimetable;

@@ -66,27 +66,26 @@ class BusTimetable {
     const today = new Date();
     console.log(today);
     const now = today.setTime(today);
-    //  console.log(now);
+    let count = 0;
     const results = [];
 
     // bus times => bus routes
     const leeds = leedsTimes.map((time) => {
-      return { route: 'leeds', time: time };
+      return { route: '126 leeds', time: time };
     });
     const wakefield = wakefieldTimes.map((time) => {
-      return { route: 'wakefield', time: time };
+      return { route: '52 wakefield', time: time };
     });
     const doncaster = doncasterTimes.map((time) => {
-      return { route: 'doncaster', time: time };
+      return { route: 'X78 doncaster', time: time };
     });
     const sheffield = sheffieldTimes.map((time) => {
-      return { route: 'sheffield', time: time };
+      return { route: 'X15 sheffield', time: time };
     });
     const buses = leeds.concat(wakefield).concat(doncaster).concat(sheffield);
     //  const filtered = buses.filter((v, i, a) => a.indexOf(v) === i);
     //  buses.sort();
 
-    let count = 0;
     for (const bus of buses) {
       if (now < bus.time) {
         results.push(bus);

@@ -6,36 +6,33 @@ h5 {
   line-height: normal;
 }
 
-h1 {
-  font-size: 1.2rem;
-  text-transform: capitalize;
-}
-
 p {
   margin: 10px 0;
   font-size: 1rem;
-}
-
-.App {
-  text-align: center;
 }
 
 header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 20vh;
+  min-height: 10vh;
   justify-content: center;
   background-color: #282c34;
   color: white;
+}
+
+header h1 {
+  font-size: 1.8rem;
+  text-transform: capitalize;
 }
 
 main {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 10px;
   min-height: 80vh;
-  justify-content: center;
+  justify-content: flex-start;
   background-color: #fff;
   color: #222;
 }
@@ -44,22 +41,38 @@ main {
   width: 50%;
 }
 
+.timer {
+  margin: 10px;
+}
+
 table {
-  background-color: #eee;
-  border: 1px solid whitesmoke;
+  width: 100%;
+  min-width: 500px;
+  max-width: 900px;
+  background-color: transparent;
   border-collapse: collapse;
+  text-align: center;
+}
+
+thead tr {
+  border: 1px solid #333;
 }
 
 th,
 td {
-  border: 1px solid whitesmoke;
+  margin: 0;
+  padding: 10px;
+  border: 1px solid #e1e1e1;
+  color: #222;
+  text-align: center;
 }
 
 th {
-  background-color: lightgrey;
+  background-color: #e1e1e1;
   font-weight: 600;
+  text-transform: uppercase;
 }
 
 td {
-  background-color: #eee;
+  background-color: transparent;
 }

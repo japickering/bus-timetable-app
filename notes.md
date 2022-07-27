@@ -1,8 +1,10 @@
 # Farnell Bus timetable spec
 
-Patrons at Farnell bus station want to know when their buses are due to depart. As they wait at their terminal, they will see a display with a countdown by minute for when their bus is due to depart the station. We would like you to implement a bus timetable display to show the next two buses due to depart the terminus.
+Patrons at Farnell bus station want to know when their buses are due to depart. As they wait at their terminal, they will see a display with a countdown by minute for when their bus is due to depart the station.
 
-## Acceptance Criteria:
+We would like you to implement a bus timetable display to show the next two buses due to depart the terminus.
+
+## Acceptance Criteria
 
 - The display should show a clock, so people know what time it is.
 - The display should show the next two buses due to leave the station.

@@ -11,7 +11,7 @@ export default class App extends Component {
 
     this.state = {
       currentTime: this.getCurrentTime(),
-      buses: timetable.findNextTwoBuses(
+      buses: timetable.findNextBuses(
         timetable.leedsTimes,
         timetable.wakefieldTimes,
         timetable.doncasterTimes,
@@ -39,7 +39,7 @@ export default class App extends Component {
     setInterval(() => {
       this.setState({
         currentTime: this.getCurrentTime(),
-        buses: timetable.findNextTwoBuses(
+        buses: timetable.findNextBuses(
           timetable.leedsTimes,
           timetable.wakefieldTimes,
           timetable.doncasterTimes,
@@ -55,7 +55,9 @@ export default class App extends Component {
       <div className='App'>
         <header>
           <h1>bus departures</h1>
-          <div className='timer'>Time now: {this.state.currentTime}</div>
+          <div className='timer'>
+            Time now: <span>{this.state.currentTime}</span>
+          </div>
         </header>
         <main>
           <div>

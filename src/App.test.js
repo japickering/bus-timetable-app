@@ -11,7 +11,7 @@ test('renders header', () => {
 
 test('renders table headers', () => {
   render(<App />);
-  const textElement = screen.getByText(/bus route/i);
+  const textElement = screen.getByText(/next bus/i);
   expect(textElement).toBeInTheDocument();
   const textElement2 = screen.getByText(/departs/i);
   expect(textElement2).toBeInTheDocument();

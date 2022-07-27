@@ -69,7 +69,7 @@ class BusTimetable {
     const today = new Date();
     //  console.log(today);
     const now = today.setTime(today);
-    const maxResults = 2; // edit for more buses
+    const max = 20; // edit for more results
     const results = [];
     let count = 0;
 
@@ -95,7 +95,7 @@ class BusTimetable {
         results.push(bus);
         count++;
       }
-      if (count === maxResults) {
+      if (count === max) {
         return results;
       }
     }

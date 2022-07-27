@@ -49,19 +49,22 @@ export default class App extends Component {
     }, 1000);
   }
 
-  // TODO: All buses leaving the station should be represented.
   render() {
+    const { currentTime, buses } = this.state;
+
     return (
       <div className='App'>
         <header>
           <h1>bus departures</h1>
           <div className='timer'>
-            Time now: <span>{this.state.currentTime}</span>
+            <p>
+              Time now: <span>{currentTime}</span>
+            </p>
           </div>
         </header>
         <main>
           <div>
-            <Timetable buses={this.state.buses} />
+            <Timetable buses={buses} />
           </div>
         </main>
       </div>

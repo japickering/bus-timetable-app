@@ -11,7 +11,7 @@ function Timetable({ buses }) {
 
       return (
         <tr key={bus.time} className='row'>
-          <td>{bus.route.toUpperCase()}</td>
+          <td>{bus.route}</td>
           <td>{time}</td>
         </tr>
       );

@@ -13,29 +13,41 @@ function getCurrentTime() {
   return hh + ':' + mm + ':' + ss;
 }
 
-function departures(time, leedsTimes, wakefieldTimes, doncasterTimes, sheffieldTimes) {
-  const today = new Date(`2022-07-27T${time}`);
-  //   console.log(today);
+function departures(currentTime, leedsTimes, wakefieldTimes, doncasterTimes, sheffieldTimes) {
+  const today = new Date(`2022-07-28T${currentTime}`);
   const now = today.setTime(today);
   const buses = [...leedsTimes, ...wakefieldTimes, ...doncasterTimes, ...sheffieldTimes];
   //  console.log(buses);
   const maxRows = 15;
   const results = [];
-  let count = 0;
+  let rows = 0;
+  let i = 0;
 
   for (const bus of buses) {
     if (now < bus.time) {
       results.push(bus);
-      count++;
+      rows++;
     } else {
-      results.splice(0, 1);
+      results.splice(i, 1);
     }
-    if (count === maxRows) {
+    if (rows === maxRows) {
       return results;
     }
+
+    i++;
   }
 
   return [{ route: 'no results', time: '' }];
+}
+
+function checkNext15Minutes(currentTime, buses) {
+  const today = new Date(`2022-07-28T${currentTime}`);
+  const now = today.setTime(today);
+  const quarterHour = 900000; // 15 mins in milliseconds
+  const delta = Math.abs(buses[0].time - now);
+  console.log('time delta', delta);
+
+  return delta > quarterHour ? 'No buses due in the next 15 minutes' : `Next bus to ${buses[0].name} arriving soon`;
 }
 
 export default class App extends Component {
@@ -47,15 +59,18 @@ export default class App extends Component {
     this.doncasterTimes = this.every20Mins();
     this.sheffieldTimes = this.everyHour24Hours();
 
+    const buses = departures(
+      getCurrentTime(),
+      this.leedsTimes,
+      this.wakefieldTimes,
+      this.doncasterTimes,
+      this.sheffieldTimes
+    );
+
     this.state = {
       currentTime: getCurrentTime(),
-      buses: departures(
-        getCurrentTime(),
-        this.leedsTimes,
-        this.wakefieldTimes,
-        this.doncasterTimes,
-        this.sheffieldTimes
-      ),
+      buses: buses,
+      alert: checkNext15Minutes(getCurrentTime(), buses),
     };
   }
 
@@ -63,6 +78,7 @@ export default class App extends Component {
     setInterval(() => {
       this.setState({
         currentTime: getCurrentTime(),
+        alert: checkNext15Minutes(getCurrentTime(), this.state.buses),
       });
     }, 1000);
     setInterval(() => {
@@ -78,13 +94,10 @@ export default class App extends Component {
     }, 60000);
   }
 
-  // TODO: show when no buses are due to depart in the next 15 minutes
-  checkNext15Minutes() {}
-
   // The X15 to SHEFFIELD departs every hour, on the hour, and is a 24-hour service.
   everyHour24Hours() {
     const arr = [];
-    const now = new Date('2022-07-27T00:00:00');
+    const now = new Date('2022-07-28T00:00:00');
     arr.push(now.setTime(now));
     const route = 'x52';
     const name = 'sheffield';
@@ -100,7 +113,7 @@ export default class App extends Component {
   // The X78 to DONCASTER departs every 20 minutes and is a 24-hour service.
   every20Mins() {
     const arr = [];
-    const now = new Date('2022-07-27T00:00:00');
+    const now = new Date('2022-07-28T00:00:00');
     arr.push(now.setTime(now));
     const route = 'x78';
     const name = 'doncaster';
@@ -116,7 +129,7 @@ export default class App extends Component {
   // The 52 to WAKEFIELD departs every 12 minutes. The service starts at 6am and the last bus departs at 9pm.
   every12Mins() {
     const arr = [];
-    const now = new Date('2022-07-27T06:30:00');
+    const now = new Date('2022-07-28T06:30:00');
     arr.push(now.setTime(now));
     const route = '52';
     const name = 'wakefield';
@@ -132,7 +145,7 @@ export default class App extends Component {
   // The 126 to LEEDS departs every 6 minutes. The service starts at 5.30am and the last bus departs at 1.30am
   every6Mins() {
     const arr = [];
-    const now = new Date('2022-07-27T05:30:00');
+    const now = new Date('2022-07-28T05:30:00');
     arr.push(now.setTime(now));
     const route = '126';
     const name = 'leeds';
@@ -146,7 +159,7 @@ export default class App extends Component {
   }
 
   render() {
-    const { currentTime, buses } = this.state;
+    const { alert, buses, currentTime } = this.state;
 
     return (
       <div className='App'>
@@ -160,6 +173,7 @@ export default class App extends Component {
         </header>
         <main>
           <div>
+            <p className='alert'>{alert}</p>
             <Timetable buses={buses} />
           </div>
         </main>

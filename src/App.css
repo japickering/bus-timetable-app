@@ -15,7 +15,7 @@ h1 {
 p {
   margin: 10px 0;
   line-height: normal;
-  font-size: 1rem;
+  font-size: 1.2rem;
 }
 
 header {
@@ -53,6 +53,17 @@ main {
 
 .timer code {
   color: lightgreen;
+  text-transform: uppercase;
+}
+
+.alert {
+  display: block;
+  padding: 10px;
+  background-color: orange;
+  /* color: fuchsia; */
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
   text-transform: uppercase;
 }
 

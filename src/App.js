@@ -13,6 +13,31 @@ function getCurrentTime() {
   return hh + ':' + mm + ':' + ss;
 }
 
+function departures(time, leedsTimes, wakefieldTimes, doncasterTimes, sheffieldTimes) {
+  const today = new Date(`2022-07-27T${time}`);
+  //   console.log(today);
+  const now = today.setTime(today);
+  const buses = [...leedsTimes, ...wakefieldTimes, ...doncasterTimes, ...sheffieldTimes];
+  //  console.log(buses);
+  const maxRows = 15;
+  const results = [];
+  let count = 0;
+
+  for (const bus of buses) {
+    if (now < bus.time) {
+      results.push(bus);
+      count++;
+    } else {
+      results.splice(0, 1);
+    }
+    if (count === maxRows) {
+      return results;
+    }
+  }
+
+  return [{ route: 'no results', time: '' }];
+}
+
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -24,7 +49,7 @@ export default class App extends Component {
 
     this.state = {
       currentTime: getCurrentTime(),
-      buses: this.departures(
+      buses: departures(
         getCurrentTime(),
         this.leedsTimes,
         this.wakefieldTimes,
@@ -42,7 +67,7 @@ export default class App extends Component {
     }, 1000);
     setInterval(() => {
       this.setState({
-        buses: this.departures(
+        buses: departures(
           getCurrentTime(),
           this.leedsTimes,
           this.wakefieldTimes,
@@ -61,10 +86,12 @@ export default class App extends Component {
     const arr = [];
     const now = new Date('2022-07-27T00:00:00');
     arr.push(now.setTime(now));
+    const route = 'x52';
+    const name = 'sheffield';
 
     for (var i = 0; i < 24; i++) {
       let time = now.setTime(now.getTime() + 60 * 60 * 1000);
-      arr.push({ route: 'x12 sheffield', time: time });
+      arr.push({ id: route + i, route: route, name: name, time: time });
     }
 
     return arr;
@@ -75,10 +102,12 @@ export default class App extends Component {
     const arr = [];
     const now = new Date('2022-07-27T00:00:00');
     arr.push(now.setTime(now));
+    const route = 'x78';
+    const name = 'doncaster';
 
     for (var i = 0; i < 72; i++) {
       const time = now.setTime(now.getTime() + 20 * 60 * 1000);
-      arr.push({ route: 'x78 doncaster', time: time });
+      arr.push({ id: route + i, route: route, name: name, time: time });
     }
 
     return arr;
@@ -89,10 +118,12 @@ export default class App extends Component {
     const arr = [];
     const now = new Date('2022-07-27T06:30:00');
     arr.push(now.setTime(now));
+    const route = '52';
+    const name = 'wakefield';
 
     for (var i = 0; i < 72; i++) {
       const time = now.setTime(now.getTime() + 12 * 60 * 1000);
-      arr.push({ route: '52 wakefield', time: time });
+      arr.push({ id: route + i, route: route, name: name, time: time });
     }
 
     return arr;
@@ -103,37 +134,15 @@ export default class App extends Component {
     const arr = [];
     const now = new Date('2022-07-27T05:30:00');
     arr.push(now.setTime(now));
+    const route = '126';
+    const name = 'leeds';
 
     for (var i = 0; i < 80; i++) {
       const time = now.setTime(now.getTime() + 6 * 60 * 1000);
-      arr.push({ route: '126 leeds', time: time });
+      arr.push({ id: route + i, route: route, name: name, time: time });
     }
 
     return arr;
-  }
-
-  departures(time, leedsTimes, wakefieldTimes, doncasterTimes, sheffieldTimes) {
-    const today = new Date(`2022-07-27T${time}`);
-    console.log(today);
-    const now = today.setTime(today);
-    const buses = [...leedsTimes, ...wakefieldTimes, ...doncasterTimes, ...sheffieldTimes];
-    //  console.log(buses);
-
-    const maxRows = 0;
-    const results = [];
-    let count = 0;
-
-    for (const bus of buses) {
-      if (now < bus.time) {
-        results.push(bus);
-        count++;
-      }
-      if (count === maxRows) {
-        return results;
-      }
-    }
-
-    return [{ route: 'no results', time: '' }];
   }
 
   render() {
@@ -144,9 +153,9 @@ export default class App extends Component {
         <header>
           <h1>bus departures</h1>
           <div className='timer'>
-            <p>
+            <code>
               Time now: <span>{currentTime}</span>
-            </p>
+            </code>
           </div>
         </header>
         <main>

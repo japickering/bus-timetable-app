@@ -51,6 +51,11 @@ main {
   font-weight: bold;
 }
 
+.timer code {
+  color: lightgreen;
+  text-transform: uppercase;
+}
+
 table {
   width: 100%;
   min-width: 500px;

@@ -10,8 +10,9 @@ function Timetable({ buses }) {
       const time = hh + ':' + mm;
 
       return (
-        <tr key={bus.time} className='row'>
+        <tr key={bus.id} className='row'>
           <td>{bus.route}</td>
+          <td>{bus.name}</td>
           <td>{time}</td>
         </tr>
       );
@@ -22,7 +23,8 @@ function Timetable({ buses }) {
     <table>
       <thead>
         <tr>
-          <th>next bus</th>
+          <th>route</th>
+          <th>destination</th>
           <th>departs</th>
         </tr>
       </thead>

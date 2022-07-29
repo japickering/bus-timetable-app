@@ -1,4 +1,5 @@
 import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 function Timetable({ buses }) {
   const renderRows = (buses) => {
@@ -10,9 +11,10 @@ function Timetable({ buses }) {
       const time = hh + ':' + mm;
 
       return (
-        <tr key={bus.id} className='row'>
-          <td>{bus.route}</td>
-          <td>{bus.name}</td>
+        <tr key={uuidv4()} className='row'>
+          <td>
+            {bus.route} {bus.name}
+          </td>
           <td>{time}</td>
         </tr>
       );
@@ -23,8 +25,7 @@ function Timetable({ buses }) {
     <table>
       <thead>
         <tr>
-          <th>route</th>
-          <th>destination</th>
+          <th>bus route</th>
           <th>departs</th>
         </tr>
       </thead>

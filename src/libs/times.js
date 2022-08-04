@@ -9,6 +9,42 @@ export function getCurrentTime() {
   return hh + ':' + mm + ':' + ss;
 }
 
+export async function mockFetch(url) {
+  switch (url) {
+    case 'https://localhost:3000/leeds': {
+      return {
+        ok: true,
+        status: 200,
+        json: async () => every6Mins,
+      };
+    }
+    case 'https://localhost:3000/wakefield': {
+      return {
+        ok: true,
+        status: 200,
+        json: async () => every12Mins,
+      };
+    }
+    case 'https://localhost:3000/doncaster': {
+      return {
+        ok: true,
+        status: 200,
+        json: async () => every20Mins,
+      };
+    }
+    case 'https://localhost:3000/sheffield': {
+      return {
+        ok: true,
+        status: 200,
+        json: async () => everyHour24Hours,
+      };
+    }
+    default: {
+      throw new Error(`Unhandled request: ${url}`);
+    }
+  }
+}
+
 export function departures(currentTime, buses) {
   const today = new Date(`2022-07-28T${currentTime}`);
   const now = today.setTime(today);

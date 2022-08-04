@@ -77,7 +77,7 @@ export function checkNext15Minutes(currentTime, buses) {
   const delta = Math.abs(buses[0].time - now);
   console.log('time delta', delta);
 
-  return delta > quarterHour ? 'Please wait' : `${buses[0].name.toUpperCase()} bus arriving shortly`;
+  return delta > quarterHour ? 'More than 15 minutes wait' : `${buses[0].name.toUpperCase()} bus arriving shortly`;
 }
 
 // The X15 to SHEFFIELD departs every hour, on the hour, and is a 24-hour service.
